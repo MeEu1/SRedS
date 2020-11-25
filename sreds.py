@@ -17,10 +17,11 @@ def main():
     #add key words for the search
     
     subreddits_input = input('Subreddits(separate them with a \', \'): ') 
-    subreddits = subreddits_input.split(', ')
+    subreddits_str = subreddits_input.split(', ')
+    subreddits = []
     
-    for i in range(len(subreddits)):
-        subreddits[i] = reddit.subreddit(subreddits[i]) #transform the strings into subreddit objects
+    for i in range(len(subreddits_str)):
+        subreddits[i] = reddit.subreddit(subreddits_str[i]) #transform the strings into subreddit objects
     
     for subreddit in subreddits:
         try:
@@ -33,7 +34,7 @@ def main():
             print('{} not found'.format(subreddit.display_name))
 
     if len(posts) > 0:
-        #transforms the gotten posts' titles and urls into a data frame
+        #transforms the gotten posts' titles and urls into a dataframe
         posts = pd.DataFrame(posts, columns = ['keyWord', 'subreddit', 'post_title', 'post_url'])
         posts.to_csv('output.csv')
         print('done!')
